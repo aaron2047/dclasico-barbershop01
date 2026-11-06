@@ -107,12 +107,15 @@ export const CAL_LINKS: Record<
   shave: { any: "", barbers: {} },
 };
 
+/** Prefix a /public path with the Pages basePath (empty in local dev). */
+export const asset = (path: string) => `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
+
 export const GALLERY = [
-  { src: "/images/cut-hero.webp", alt: "Fresh fade and shaped beard", label: "PRECISION FADE" },
-  { src: "/images/barber-working.webp", alt: "Barber working with clippers", label: "THE CRAFT" },
-  { src: "/images/cut-design.webp", alt: "Detailed hair design at the back of a cut", label: "CUSTOM DETAIL" },
-  { src: "/images/cut-close.webp", alt: "Close crop with shaped sides", label: "CLEAN FINISH" },
-  { src: "/images/cut-back.webp", alt: "Back view of a fresh cut", label: "THE BACK VIEW" },
-  { src: "/images/shop-interior.webp", alt: "Interior of the barbershop", label: "INSIDE THE SHOP" },
-  { src: "/images/cut-fade.webp", alt: "Fade haircut at D'Clasicos", label: "SIGNATURE CUT" },
+  { src: asset("/images/cut-hero.webp"), alt: "Fresh fade and shaped beard", label: "PRECISION FADE" },
+  { src: asset("/images/barber-working.webp"), alt: "Barber working with clippers", label: "THE CRAFT" },
+  { src: asset("/images/cut-design.webp"), alt: "Detailed hair design at the back of a cut", label: "CUSTOM DETAIL" },
+  { src: asset("/images/cut-close.webp"), alt: "Close crop with shaped sides", label: "CLEAN FINISH" },
+  { src: asset("/images/cut-back.webp"), alt: "Back view of a fresh cut", label: "THE BACK VIEW" },
+  { src: asset("/images/shop-interior.webp"), alt: "Interior of the barbershop", label: "INSIDE THE SHOP" },
+  { src: asset("/images/cut-fade.webp"), alt: "Fade haircut at D'Clasicos", label: "SIGNATURE CUT" },
 ];

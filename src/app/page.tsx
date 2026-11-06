@@ -23,7 +23,7 @@ import {
   X,
 } from "lucide-react";
 import { BookingDrawer } from "@/components/BookingDrawer";
-import { BARBERS, BUSINESS, GALLERY, SERVICES, type ServiceId } from "@/lib/site-data";
+import { asset, BARBERS, BUSINESS, GALLERY, SERVICES, type ServiceId } from "@/lib/site-data";
 
 const NAV_ITEMS = [
   { label: "The craft", href: "#about" },
@@ -211,10 +211,10 @@ export default function HomePage() {
             <div className="relative min-h-[470px] lg:min-h-[610px]">
               <div className="absolute right-0 top-[3%] h-[78%] w-[83%] border border-acid/50 sm:w-[78%]"/>
               <div className="picture-shine absolute left-[1%] top-[8%] h-[84%] w-[82%] overflow-hidden bg-panel sm:left-[6%] sm:w-[75%]">
-                <img src="/images/cut-hero.webp" alt="Fresh fade and clean beard line at D'Clasicos" className="h-full w-full object-cover object-center" fetchPriority="high"/>
+                <img src={asset("/images/cut-hero.webp")} alt="Fresh fade and clean beard line at D'Clasicos" className="h-full w-full object-cover object-center" fetchPriority="high"/>
               </div>
               <div className="absolute right-[-1%] top-[45%] h-[38%] w-[40%] overflow-hidden border-[5px] border-ink bg-panel shadow-[0_18px_60px_rgba(0,0,0,.65)] sm:right-[-2%] sm:w-[37%]">
-                <img src="/images/barber-working.webp" alt="Barber detailing a haircut with clippers" className="h-full w-full object-cover object-center"/>
+                <img src={asset("/images/barber-working.webp")} alt="Barber detailing a haircut with clippers" className="h-full w-full object-cover object-center"/>
               </div>
               <div className="absolute bottom-[5%] left-[-2%] flex items-center gap-3 bg-acid px-5 py-4 text-ink shadow-2xl sm:left-[1%] sm:px-6">
                 <Scissors size={20}/>
@@ -241,7 +241,7 @@ export default function HomePage() {
             <div>
               <Eyebrow number="01">The D&apos;Clasicos standard</Eyebrow>
               <div className="relative max-w-[350px] overflow-hidden grayscale-[30%]">
-                <img src="/images/shop-interior.webp" alt="D'Clasicos barbershop interior with geometric lighting" className="aspect-[4/3] w-full object-cover" loading="lazy"/>
+                <img src={asset("/images/shop-interior.webp")} alt="D'Clasicos barbershop interior with geometric lighting" className="aspect-[4/3] w-full object-cover" loading="lazy"/>
                 <span className="absolute bottom-0 right-0 bg-acid px-3 py-2 text-[10px] font-black uppercase tracking-[.14em] text-ink">4947 N 5TH</span>
               </div>
             </div>

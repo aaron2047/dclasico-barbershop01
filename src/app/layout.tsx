@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Meet the barbers at D'Clasicos in Olney, Philadelphia. Explore haircuts, fades, beard trims and kids' cuts at 4947 N 5th Street and find your appointment.",
   applicationName: BUSINESS.name,
-  alternates: { canonical: "/" },
+  alternates: { canonical: siteUrl },
   keywords: [
     "D'Clasicos Barber Shop",
     "Olney barber",
@@ -26,8 +26,9 @@ export const metadata: Metadata = {
     title: "D'Clasicos | The Cut Speaks",
     description: "Find your barber. Claim your chair. Olney, Philadelphia.",
     url: siteUrl,
-    images: [{ url: "/images/cut-hero.webp", width: 386, height: 510 }],
+    images: [{ url: `${siteUrl}/images/cut-hero.webp`, width: 386, height: 510 }],
   },
+  icons: { icon: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/favicon.svg` },
   robots: { index: allowIndexing, follow: allowIndexing },
 };
 
