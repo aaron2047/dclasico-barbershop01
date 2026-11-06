@@ -1,5 +1,9 @@
+"use client";
+
+import { useCallback, useState } from "react";
 import { ArrowRight, ArrowUpRight, Check, Clock, Instagram, MapPin, Phone, Scissors, Star } from "lucide-react";
-import { asset, BUSINESS, GALLERY, SERVICES } from "@/lib/site-data";
+import { BookingDrawer } from "@/components/BookingDrawer";
+import { asset, BARBERS, BUSINESS, GALLERY, SERVICES } from "@/lib/site-data";
 
 /**
  * D'Clasicos concept v2 — layout modeled on a calm, photo-led, appointment-first
@@ -18,6 +22,13 @@ const HOUSE_NOTES = [
   "Kids are welcome. Call for age guidance and timing.",
   "Rates are confirmed when you book.",
   "Cuts, line-ups, beard work and shaves. Ask us about anything else.",
+];
+
+const FAQS = [
+  { question: "Do I need an appointment?", answer: "Appointments are recommended. Choose a service and barber to begin. Until the online calendars are connected, call the shop to confirm availability." },
+  { question: "Can I book with a specific barber?", answer: "Yes. Pick your barber in the booking steps and you'll see their personal schedule once the shop activates individual calendars." },
+  { question: "Do you offer cuts for kids?", answer: "Yes, kids' haircuts are on the service list. Call the shop to confirm age guidance, price and appointment length." },
+  { question: "Where can I find the shop?", answer: `D'Clasicos is at ${BUSINESS.streetAddress} in Olney, ${BUSINESS.locality}. Use the directions link in the footer to plan your visit.` },
 ];
 
 function Button({ href, children, variant = "solid", external = false }: {
@@ -40,6 +51,11 @@ function Button({ href, children, variant = "solid", external = false }: {
 }
 
 export default function Home() {
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [bookingBarber, setBookingBarber] = useState("any");
+  const openBooking = (barber = "any") => { setBookingBarber(barber); setBookingOpen(true); };
+  const closeBooking = useCallback(() => setBookingOpen(false), []);
+
   return (
     <main>
       {/* HERO: full-bleed photo, floating header, left-aligned copy (Talon-style) */}
@@ -161,6 +177,36 @@ export default function Home() {
         </div>
       </section>
 
+      {/* BARBERS */}
+      <section id="barbers" className="bg-paper">
+        <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">Meet the barbers</p>
+            <h2 className="mt-4 font-serif text-[40px] font-medium leading-[1.1] text-espresso sm:text-[48px]">Your barber, your chair.</h2>
+            <p className="mt-4 text-[16px] text-stone">Book with the barber you trust, or take the first opening. Names and photos are added once the shop confirms them.</p>
+          </div>
+          <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
+            {BARBERS.map((b) => (
+              <article key={b.id} className="flex flex-col items-center rounded-3xl border border-espresso/10 bg-cream p-6 text-center">
+                <div className="grid h-24 w-24 place-items-center rounded-full border border-brass/40 bg-paper text-brass"><Scissors size={26} /></div>
+                <p className="mt-5 text-[11px] font-bold uppercase tracking-[.2em] text-stone/70">Profile coming soon</p>
+                <h3 className="mt-1 font-serif text-[24px] font-medium text-espresso">{b.name}</h3>
+                <button type="button" onClick={() => openBooking(b.id)} className="btn mt-5 inline-flex items-center gap-1.5 rounded-full border border-espresso/30 px-4 py-2.5 text-[11px] font-bold uppercase tracking-[.14em] text-espresso hover:border-brass hover:text-brass">
+                  Book with {b.number} <ArrowRight size={13} />
+                </button>
+              </article>
+            ))}
+            <article className="flex flex-col items-center justify-center rounded-3xl bg-espresso p-6 text-center text-cream">
+              <p className="font-serif text-[26px] leading-tight">Not sure who?</p>
+              <p className="mt-2 text-[14px] text-cream/70">Take the soonest opening.</p>
+              <button type="button" onClick={() => openBooking("any")} className="btn mt-5 inline-flex items-center gap-1.5 rounded-full bg-brass px-4 py-2.5 text-[11px] font-bold uppercase tracking-[.14em] text-espresso hover:bg-brass-light">
+                First available <ArrowRight size={13} />
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
+
       {/* GALLERY */}
       <section id="gallery" className="bg-paper">
         <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8">
@@ -209,6 +255,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section id="faq" className="bg-paper">
+        <div className="mx-auto max-w-3xl px-5 py-24 sm:px-8">
+          <div className="text-center">
+            <p className="eyebrow">Good questions</p>
+            <h2 className="mt-4 font-serif text-[40px] font-medium text-espresso sm:text-[48px]">Before you book</h2>
+          </div>
+          <div className="mt-10 divide-y divide-espresso/10 border-y border-espresso/10">
+            {FAQS.map((f, i) => (
+              <details key={f.question} open={i === 0} className="group py-5">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-serif text-[22px] text-espresso [&::-webkit-details-marker]:hidden">
+                  {f.question}
+                  <span className="text-brass transition-transform group-open:rotate-45" aria-hidden>+</span>
+                </summary>
+                <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-stone">{f.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* BOOKING */}
       <section id="book" className="wood on-dark text-cream">
         <div className="mx-auto max-w-3xl px-5 py-24 text-center sm:px-8">
@@ -236,8 +303,9 @@ export default function Home() {
                 <p className="mt-6 text-[14px] text-stone">
                   Live scheduling connects here once the shop activates its calendar. Until then, call to book.
                 </p>
-                <div className="mt-6">
-                  <Button href={`tel:${BUSINESS.phoneHref}`}><Phone size={15} /> Call {BUSINESS.phoneDisplay}</Button>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <button type="button" onClick={() => openBooking("any")} className="btn inline-flex items-center gap-2 rounded-full bg-espresso px-7 py-3.5 text-[12px] font-bold uppercase tracking-[.14em] text-cream hover:bg-walnut">Start booking <ArrowRight size={15} /></button>
+                  <Button href={`tel:${BUSINESS.phoneHref}`} variant="ghost-dark"><Phone size={15} /> Call {BUSINESS.phoneDisplay}</Button>
                 </div>
               </div>
             )}
@@ -293,6 +361,7 @@ export default function Home() {
           Book your appointment <ArrowRight size={15} />
         </a>
       </div>
+      <BookingDrawer open={bookingOpen} onClose={closeBooking} initialBarber={bookingBarber} />
     </main>
   );
 }

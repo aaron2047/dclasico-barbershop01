@@ -12,7 +12,7 @@ export const BUSINESS = {
   streetAddress: "4947 N 5th St",
   locality: "Philadelphia, PA 19120",
   neighborhood: "Olney · Philadelphia",
-  instagram: "https://www.instagram.com/d_clasicos.barbershop/",
+  instagram: "https://www.instagram.com/d.clasicosbshop/",
   directory: "https://olneycollab.com/listing/dclasico-barbershop/",
   googleReviews:
     "https://www.google.com/maps/search/?api=1&query=D%27Clasicos%20Barber%20Shop%204947%20N%205th%20St%20Philadelphia",
