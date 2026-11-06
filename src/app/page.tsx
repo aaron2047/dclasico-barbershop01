@@ -11,7 +11,7 @@ import { asset, BUSINESS, GALLERY, SERVICES } from "@/lib/site-data";
  */
 const CAL_URL = process.env.NEXT_PUBLIC_CAL_URL ?? "";
 
-const HERO_IMAGE = asset("/images/cut-hero.webp"); // 386px wide: swap for a 1600px+ original, then use full-bleed.
+const HERO_IMAGE = asset("/images/hero.webp"); // 1456x720, text/logo removed. Swap for a 2000px+ original when available.
 
 const HOUSE_NOTES = [
   "Appointments recommended. Call to confirm hours and availability.",
@@ -42,26 +42,38 @@ function Button({ href, children, variant = "solid", external = false }: {
 export default function Home() {
   return (
     <main>
-      {/* HERO */}
-      <section className="wood on-dark relative overflow-hidden text-cream">
+      {/* HERO: full-bleed photo, floating header, left-aligned copy (Talon-style) */}
+      <section id="top" className="on-dark relative isolate overflow-hidden bg-espresso text-cream">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={HERO_IMAGE}
+          alt="Gold and rose-gold clippers, shears and straight razors laid out on a barber's tray"
+          width={1456}
+          height={720}
+          fetchPriority="high"
+          className="absolute inset-0 -z-20 h-full w-full object-cover object-[68%_center]"
+        />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(21,17,14,.94)_0%,rgba(21,17,14,.82)_38%,rgba(21,17,14,.35)_75%,rgba(21,17,14,.15)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-espresso/80 to-transparent" />
+
         <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-6 sm:px-8">
           <a href="#top" className="font-serif text-[28px] leading-none tracking-tight">
             D&apos;Clasicos<span className="text-brass">.</span>
           </a>
-          <a href="#book" className="btn rounded-full border border-white/35 px-5 py-2.5 text-[12px] font-bold tracking-wide hover:border-brass-light hover:text-brass-light">
+          <a href="#book" className="btn rounded-full border border-white/40 px-5 py-2.5 text-[12px] font-bold tracking-wide hover:border-brass-light hover:text-brass-light">
             Book Your Appointment
           </a>
         </header>
 
-        <div id="top" className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-10 sm:px-8 md:grid-cols-[1.15fr_.85fr] md:pb-28 md:pt-16">
-          <div>
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-[11px] font-bold uppercase tracking-[.2em] text-brass-light">
+        <div className="mx-auto flex min-h-[600px] max-w-6xl items-center px-5 pb-24 pt-10 sm:px-8 md:min-h-[680px]">
+          <div className="max-w-2xl">
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-[11px] font-bold uppercase tracking-[.2em] text-brass-light">
               <Scissors size={13} /> Barbershop · Olney, Philadelphia
             </p>
             <h1 className="mt-7 font-serif text-[46px] font-medium leading-[1.04] sm:text-[64px] lg:text-[76px]">
               Classic cuts.<br />Modern precision.
             </h1>
-            <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-cream/75">
+            <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-cream/80">
               D&apos;Clasicos is a neighborhood barbershop at {BUSINESS.streetAddress} where the details
               are the whole point: clean fades, sharp lines and a chair that&apos;s yours for the time it takes.
             </p>
@@ -69,24 +81,10 @@ export default function Home() {
               <Button href="#book">Book your appointment <ArrowRight size={15} /></Button>
               <Button href="#services" variant="ghost">View services</Button>
             </div>
-            <p className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 text-[14px] text-cream/70">
+            <p className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 text-[14px] text-cream/75">
               <span className="inline-flex items-center gap-2"><MapPin size={15} className="text-brass" /> {BUSINESS.streetAddress}, Olney</span>
               <a href={`tel:${BUSINESS.phoneHref}`} className="inline-flex items-center gap-2 hover:text-brass-light"><Phone size={15} className="text-brass" /> {BUSINESS.phoneDisplay}</a>
             </p>
-          </div>
-
-          <div className="mx-auto w-full max-w-[360px]">
-            <div className="rounded-t-[999px] rounded-b-2xl border border-brass/40 p-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={HERO_IMAGE}
-                alt="Fresh fade and shaped beard at D'Clasicos"
-                width={386}
-                height={510}
-                fetchPriority="high"
-                className="aspect-[3/4] w-full rounded-t-[999px] rounded-b-xl object-cover"
-              />
-            </div>
           </div>
         </div>
       </section>
