@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
 import { BUSINESS } from "@/lib/site-data";
+import "@fontsource/cormorant-garamond/400.css";
+import "@fontsource/cormorant-garamond/500.css";
+import "@fontsource/cormorant-garamond/400-italic.css";
+import "@fontsource/karla/400.css";
+import "@fontsource/karla/500.css";
+import "@fontsource/karla/700.css";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
